@@ -1,2 +1,9 @@
-node_modules
-/logs
+# Node modules
+node_modules/
+
+# Logs folder
+logs/
+
+# Other files and directories to ignore
+.DS_Store
+.env 

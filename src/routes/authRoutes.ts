@@ -12,7 +12,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /register:
+ * /signup:
  *   post:
  *     summary: Register a new user
  *     tags: [Auth]
@@ -40,11 +40,11 @@ const router = express.Router();
  *       400:
  *         description: Invalid input
  */
-router.post("/register", register);
+router.post("/signup", register);
 
 /**
  * @swagger
- * /login:
+ * /signin:
  *   post:
  *     summary: Login a user
  *     tags: [Auth]
@@ -69,6 +69,6 @@ router.post("/register", register);
  *       400:
  *         description: Invalid credentials
  */
-router.post("/login", login);
+router.post("/signin", login);
 
 export default router;

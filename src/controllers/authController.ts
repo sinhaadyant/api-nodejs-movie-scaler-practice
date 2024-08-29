@@ -41,7 +41,9 @@ export const register = async (req: Request, res: Response) => {
     }
     const { username, email, password } = req.body;
     const user = await registerUser(username, email, password);
-    res.status(201).json({ user });
+    res
+      .status(201)
+      .json({ status: true, data: user, message: "Signup Sucess" });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -51,7 +53,9 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const { token, user } = await loginUser(email, password);
-    res.status(200).json({ token, user });
+    res
+      .status(200)
+      .json({ status: true, data: { token, user }, message: "Login Sucess" });
   } catch (error: any) {
     res.status(400).json({ message: error.message });
   }

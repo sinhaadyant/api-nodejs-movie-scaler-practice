@@ -3,6 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import hpp from "hpp";
 import authRoutes from "./routes/authRoutes";
+import blogRoutes from "./routes/blogRoutes";
 import { errorHandler } from "./middleware/errorHandler";
 import mongoose from "mongoose";
 import config from "./config";
@@ -18,6 +19,7 @@ app.use(express.json());
 
 // Routes
 app.use("/auth", authRoutes);
+app.use("/blog", blogRoutes);
 
 // Error handling middleware
 app.use(errorHandler);

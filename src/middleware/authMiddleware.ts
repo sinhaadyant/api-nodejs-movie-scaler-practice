@@ -1,18 +1,26 @@
+// src/middleware/authMiddleware.ts
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import config from "../config";
+import config from "../config"; // Assuming your JWT secret is in config
 
-export const authenticate = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const token = req.headers["authorization"]?.split(" ")[1];
-  if (!token) return res.status(401).json({ message: "No token provided" });
+interface IPayload {
+  id: string;
+}
 
-  jwt.verify(token, config.jwtSecret, (err, decoded: any) => {
-    if (err) return res.status(401).json({ message: "Unauthorized" });
-    req.body.userId = decoded.id;
+export const authMiddleware = (req: any, res: Response, next: NextFunction) => {
+  const token = req.header("Authorization")?.replace("Bearer ", "");
+
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Access denied. No token provided." });
+  }
+
+  try {
+    const decoded = jwt.verify(token, config.jwtSecret) as IPayload; // Decode the token
+    req.user = { id: decoded.id }; // Attach user id to the request object
     next();
-  });
+  } catch (error) {
+    res.status(400).json({ message: "Invalid token." });
+  }
 };

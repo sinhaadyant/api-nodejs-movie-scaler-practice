@@ -1,9 +1,12 @@
 // src/routes/blogRoutes.ts
 import express from "express";
-import { createBlog } from "../controllers/blogController";
+import { createBlog, listBlogs } from "../controllers/blogController";
 import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = express.Router();
+
+router.get("/", listBlogs);
+
 /**
  * @swagger
  * /blogs:
